@@ -1,5 +1,5 @@
 /**
- * WorldCorp International Website JavaScript
+ * Gabe Nipote Website JavaScript
  * Handles loading and displaying podcast episodes and blog posts
  */
 
@@ -55,10 +55,9 @@ class HQVSite {
             this.config = await response.json();
         } catch (error) {
             console.error('Error loading config:', error);
-            this.displayError('Could not load site configuration.');
             // Fallback config
             this.config = {
-                site_name: "WorldCorp International",
+                site_name: "Gabe Nipote",
                 tagline: "Business, comedy, and the occasional bad idea.",
                 accent_color: "#2B6B99",
                 on_air: false,
@@ -77,7 +76,6 @@ class HQVSite {
             this.episodes = data.episodes;
         } catch (error) {
             console.error('Error loading episodes:', error);
-            this.displayError('Could not load episodes.');
             this.episodes = [];
         }
     }
@@ -92,7 +90,6 @@ class HQVSite {
             this.posts = data.posts.filter(post => post.published);
         } catch (error) {
             console.error('Error loading posts:', error);
-            this.displayError('Could not load posts.');
             this.posts = [];
         }
     }
@@ -819,6 +816,10 @@ class HQVSite {
         const muteToggle = document.getElementById('mute-toggle');
         const muteIcon = muteToggle?.querySelector('.mute-icon');
         const unmuteIcon = muteToggle?.querySelector('.unmute-icon');
+        const progressContainer = document.getElementById('video-progress-container');
+        const progressFill = document.getElementById('video-progress-fill');
+        const progressThumb = document.getElementById('video-progress-thumb');
+        const timeDisplay = document.getElementById('video-time');
 
         if (!video || !muteToggle) return;
 
@@ -828,8 +829,6 @@ class HQVSite {
         // Toggle mute state
         muteToggle.addEventListener('click', () => {
             video.muted = !video.muted;
-
-            // Update icon visibility
             if (video.muted) {
                 muteIcon.style.display = 'none';
                 unmuteIcon.style.display = 'block';
@@ -837,14 +836,54 @@ class HQVSite {
                 muteIcon.style.display = 'block';
                 unmuteIcon.style.display = 'none';
             }
-
-            // Track analytics
             Analytics.trackEvent('Video', video.muted ? 'Muted' : 'Unmuted');
         });
 
         // Initialize icon state
         muteIcon.style.display = 'none';
         unmuteIcon.style.display = 'block';
+
+        // --- Scrubber ---
+        function formatTime(secs) {
+            if (!isFinite(secs)) return '0:00';
+            const m = Math.floor(secs / 60);
+            const s = Math.floor(secs % 60).toString().padStart(2, '0');
+            return `${m}:${s}`;
+        }
+
+        function updateProgress() {
+            if (!video.duration) return;
+            const pct = (video.currentTime / video.duration) * 100;
+            if (progressFill) progressFill.style.width = pct + '%';
+            if (progressThumb) progressThumb.style.left = pct + '%';
+            if (timeDisplay) timeDisplay.textContent = `${formatTime(video.currentTime)} / ${formatTime(video.duration)}`;
+        }
+
+        video.addEventListener('timeupdate', updateProgress);
+        video.addEventListener('loadedmetadata', updateProgress);
+
+        function seekFromEvent(e) {
+            if (!video.duration) return;
+            const rect = progressContainer.getBoundingClientRect();
+            const pct = Math.max(0, Math.min(1, (e.clientX - rect.left) / rect.width));
+            video.currentTime = pct * video.duration;
+        }
+
+        let dragging = false;
+        progressContainer.addEventListener('mousedown', (e) => {
+            dragging = true;
+            seekFromEvent(e);
+        });
+        document.addEventListener('mousemove', (e) => { if (dragging) seekFromEvent(e); });
+        document.addEventListener('mouseup', () => { dragging = false; });
+
+        // Touch support
+        progressContainer.addEventListener('touchstart', (e) => {
+            dragging = true;
+            seekFromEvent(e.touches[0]);
+        }, { passive: true });
+        document.addEventListener('touchmove', (e) => { if (dragging) seekFromEvent(e.touches[0]); }, { passive: true });
+        document.addEventListener('touchend', () => { dragging = false; });
     }
 
 }
@@ -929,6 +968,35 @@ document.addEventListener('DOMContentLoaded', () => {
     }, 100);
 });
 
+// Page transitions: fade in on load, fade out before navigating
+(function () {
+    // Fade in as soon as the script runs (DOM is already ready since script is at bottom of body)
+    requestAnimationFrame(() => {
+        document.body.classList.add('page-visible');
+    });
+
+    // Intercept internal link clicks and fade out before navigating
+    document.addEventListener('click', (e) => {
+        const link = e.target.closest('a');
+        if (!link) return;
+
+        const href = link.getAttribute('href');
+        if (!href) return;
+
+        // Skip external links, new-tab links, hash links, and special protocols
+        if (link.target === '_blank') return;
+        if (href.startsWith('#') || href.startsWith('mailto:') || href.startsWith('tel:')) return;
+        if (href.startsWith('http') && !href.includes(window.location.hostname)) return;
+
+        e.preventDefault();
+        document.body.classList.remove('page-visible');
+
+        setTimeout(() => {
+            window.location.href = href;
+        }, 200);
+    });
+})();
+
 // Service Worker registration removed to eliminate 404 errors
 // Can be re-enabled when sw.js file is created
 
@@ -958,6 +1026,16 @@ function subscribeToNewsletter() {
     Analytics.trackEvent('Newsletter', 'Subscribe Attempt', email);
 }
 
+// Play video once it has buffered enough to play through without stalling
+function playWhenReady(video) {
+    const attempt = () => video.play().catch(err => console.log('Video play prevented:', err));
+    if (video.readyState >= 3) {
+        attempt();
+    } else {
+        video.addEventListener('canplay', attempt, { once: true });
+    }
+}
+
 // Landing Screen functionality
 function setupLandingScreen() {
     const landingScreen = document.getElementById('landing-screen');
@@ -980,9 +1058,7 @@ function setupLandingScreen() {
         // Start the video playing if landing screen is not shown
         const heroVideo = document.getElementById('hero-video');
         if (heroVideo) {
-            heroVideo.play().catch(error => {
-                console.log('Video autoplay prevented:', error);
-            });
+            playWhenReady(heroVideo);
         }
         return;
     }
@@ -996,9 +1072,7 @@ function setupLandingScreen() {
         // Start the hero video playing after landing screen is dismissed
         const heroVideo = document.getElementById('hero-video');
         if (heroVideo) {
-            heroVideo.play().catch(error => {
-                console.log('Video autoplay prevented:', error);
-            });
+            playWhenReady(heroVideo);
         }
     }
 
