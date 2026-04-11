@@ -3297,7 +3297,10 @@ section {
 
     .media-card-logo {
         order: 1;
-        height: 70px;
+        height: 60px;
+        width: auto;
+        max-width: 140px;
+        align-self: flex-start;
     }
 
     .media-card-body {
