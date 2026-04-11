@@ -3235,3 +3235,96 @@ section {
     width: auto;
     object-fit: contain;
 }
+
+/* ================================================================
+   MEDIA & CONTENT PAGE CARDS
+   ================================================================ */
+.media-cards {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    max-width: 860px;
+    margin: 0 auto;
+}
+
+.media-card {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+    border: 1px solid var(--border-color);
+    border-radius: 10px;
+    padding: 2rem;
+    background: var(--card-background);
+}
+
+.media-card-logo {
+    flex-shrink: 0;
+    height: 100px;
+    width: auto;
+    object-fit: contain;
+    border-radius: 10px;
+    order: 2;
+}
+
+.media-card-body {
+    flex: 1;
+    order: 1;
+}
+
+.media-card-body h3 {
+    margin-top: 0;
+    margin-bottom: 0.75rem;
+}
+
+.media-card-body p {
+    margin: 0 0 1rem;
+    color: var(--text-secondary);
+}
+
+.media-card-body a {
+    color: var(--accent-color);
+    font-weight: 500;
+    text-decoration: none;
+}
+
+@media (max-width: 640px) {
+    .media-card {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 1.25rem;
+        padding: 1.25rem;
+    }
+
+    .media-card-logo {
+        order: 1;
+        height: 70px;
+    }
+
+    .media-card-body {
+        order: 2;
+    }
+}
+
+/* ================================================================
+   MOBILE FIXES — VIDEO PAGES
+   ================================================================ */
+@media (max-width: 768px) {
+    .about-content {
+        padding: var(--spacing-8) 0;
+    }
+
+    .mission-statement {
+        margin-bottom: var(--spacing-4);
+    }
+
+    /* Ensure 16:9 iframes never overflow on mobile */
+    .mission-statement [style*="padding-bottom:56.25%"],
+    .mission-statement [style*="padding-bottom: 56.25%"] {
+        width: 100%;
+    }
+
+    /* VO reel compact player — give it enough height on mobile */
+    .mission-statement iframe[style*="height:80px"] {
+        height: 100px !important;
+    }
+}
