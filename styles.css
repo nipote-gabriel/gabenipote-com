@@ -760,8 +760,8 @@ a:hover {
 iframe.beehiiv-embed,
 iframe[data-test-id="beehiiv-embed"] {
     width: 100% !important;
-    height: 80px !important;
-    margin: 0 !important;
+    height: 52px !important; /* Optimized height for the embed */
+    margin: 0 !important; /* Align to left */
     border-radius: 0px !important;
     background-color: transparent !important;
     box-shadow: none !important;
