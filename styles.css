@@ -3237,20 +3237,111 @@ section {
 }
 
 /* ================================================================
-   MEDIA & CONTENT PAGE CARDS — mobile only
+   MEDIA & CONTENT PAGE CARDS
    ================================================================ */
-@media (max-width: 640px) {
-    .media-card {
-        flex-direction: column-reverse !important;
-        align-items: flex-start !important;
-        gap: 1rem !important;
-        padding: 1.25rem !important;
+.media-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+    max-width: 960px;
+    margin: 0 auto;
+}
+
+.media-card-v2 {
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    background: var(--card-background);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+}
+
+.media-card-logo-area {
+    background: #1a1a1a;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1.75rem 1.5rem;
+    min-height: 120px;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.media-card-logo-area img {
+    max-height: 72px;
+    max-width: 100%;
+    width: auto;
+    object-fit: contain;
+    border-radius: 6px;
+}
+
+.media-card-body {
+    padding: 1.25rem 1.5rem 1.5rem;
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+}
+
+.media-card-body h3 {
+    margin: 0 0 0.6rem;
+    font-size: var(--font-size-base);
+}
+
+.media-card-body p {
+    margin: 0 0 1rem;
+    color: var(--text-secondary);
+    font-size: var(--font-size-sm);
+    line-height: 1.6;
+    flex: 1;
+}
+
+.media-card-cta {
+    color: var(--accent-color);
+    font-weight: 500;
+    font-size: var(--font-size-sm);
+    text-decoration: none;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: block;
+}
+
+.media-card-cta:hover {
+    text-decoration: underline;
+}
+
+@media (max-width: 768px) {
+    .media-grid {
+        grid-template-columns: 1fr;
+        gap: 1rem;
     }
 
-    .media-card img {
-        height: 60px !important;
-        width: auto !important;
-        max-width: 140px !important;
+    .media-card-v2 {
+        flex-direction: row;
+        align-items: stretch;
+    }
+
+    .media-card-logo-area {
+        width: 100px;
+        min-width: 100px;
+        min-height: unset;
+        border-bottom: none;
+        border-right: 1px solid var(--border-color);
+        padding: 1rem;
+        flex-shrink: 0;
+    }
+
+    .media-card-logo-area img {
+        max-height: 52px;
+    }
+
+    .media-card-body {
+        padding: 1rem 1.25rem;
+    }
+
+    .media-card-cta {
+        white-space: normal;
+        overflow: visible;
+        text-overflow: unset;
     }
 }
 
