@@ -392,7 +392,7 @@ a:hover {
 
 .video-embedded-large {
     position: relative;
-    background: var(--background-secondary);
+    background: #000;
     border-radius: 0;
     overflow: hidden;
     width: 100%;
@@ -1216,7 +1216,8 @@ iframe[data-test-id="beehiiv-embed"] {
 
     .hero-video-container {
         order: 1;
-        height: 60vh;
+        height: auto;
+        aspect-ratio: 16 / 9;
     }
 
     .info-column {
