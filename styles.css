@@ -3250,7 +3250,7 @@ section {
 .media-card-v2 {
     border: 1px solid var(--border-color);
     border-radius: 12px;
-    background: var(--card-background);
+    background: #111111;
     overflow: hidden;
     display: flex;
     flex-direction: column;
