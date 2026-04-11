@@ -3241,7 +3241,7 @@ section {
    ================================================================ */
 @media (max-width: 640px) {
     .media-card {
-        flex-direction: column !important;
+        flex-direction: column-reverse !important;
         align-items: flex-start !important;
         gap: 1rem !important;
         padding: 1.25rem !important;
