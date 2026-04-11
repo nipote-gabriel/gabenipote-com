@@ -930,8 +930,15 @@ iframe[data-test-id="beehiiv-embed"] {
 
 .newsletter-embed-container {
     width: 100%;
-    max-width: 100%; /* Full width of content area */
-    margin: 0; /* Remove auto margin to align left */
+    max-width: 100%;
+    margin: 0;
+    text-align: left;
+}
+
+.newsletter-embed-container > * {
+    margin-left: 0 !important;
+    margin-right: auto !important;
+    text-align: left !important;
 }
 
 .email-input {
