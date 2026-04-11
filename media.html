@@ -66,41 +66,108 @@
         <section class="about-content">
             <div class="container">
 
-                <div class="media-grid">
+                <style>
+                    .mc-grid {
+                        display: grid;
+                        grid-template-columns: repeat(3, 1fr);
+                        gap: 1.25rem;
+                        max-width: 960px;
+                        margin: 0 auto;
+                    }
+                    .mc-card {
+                        border: 1px solid #333;
+                        border-radius: 12px;
+                        background: #111;
+                        overflow: hidden;
+                        display: flex;
+                        flex-direction: column;
+                    }
+                    .mc-logo {
+                        background: #1a1a1a;
+                        border-bottom: 1px solid #333;
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        height: 110px;
+                        padding: 1.25rem;
+                    }
+                    .mc-logo img {
+                        max-height: 64px;
+                        max-width: 100%;
+                        width: auto;
+                        object-fit: contain;
+                        border-radius: 6px;
+                    }
+                    .mc-body {
+                        padding: 1.1rem 1.25rem 1.35rem;
+                        display: flex;
+                        flex-direction: column;
+                        flex: 1;
+                    }
+                    .mc-body h3 {
+                        margin: 0 0 0.5rem;
+                        font-size: 0.95rem;
+                        font-weight: 600;
+                        color: #eee;
+                    }
+                    .mc-body p {
+                        margin: 0 0 1rem;
+                        color: #aaa;
+                        font-size: 0.82rem;
+                        line-height: 1.6;
+                        flex: 1;
+                    }
+                    .mc-cta {
+                        color: #2B6B99;
+                        font-weight: 500;
+                        font-size: 0.82rem;
+                        text-decoration: none;
+                    }
+                    .mc-cta:hover { text-decoration: underline; }
+                    @media (max-width: 700px) {
+                        .mc-grid { grid-template-columns: 1fr; gap: 0.875rem; }
+                        .mc-card { flex-direction: row; }
+                        .mc-logo { width: 90px; min-width: 90px; height: auto; border-bottom: none; border-right: 1px solid #333; padding: 1rem 0.75rem; flex-shrink: 0; }
+                        .mc-logo img { max-height: 48px; }
+                        .mc-body { padding: 0.875rem 1rem; }
+                    }
+                </style>
+
+                <div class="mc-grid">
 
                     <!-- WorldCorp International -->
-                    <div class="media-card-v2">
-                        <div class="media-card-logo-area">
+                    <div class="mc-card">
+                        <div class="mc-logo">
                             <img src="graphic assets/worldcorp-logo.png" alt="WorldCorp International">
                         </div>
-                        <div class="media-card-body">
+                        <div class="mc-body">
                             <h3>WorldCorp International</h3>
                             <p>Business is our business. WorldCorp is a multi-national evil conglomerate with the intention of keeping you entertained. Think Barstool meets NewsCorp.</p>
-                            <a href="https://worldcorpinternational.com" target="_blank" class="media-card-cta">Visit site →</a>
+                            <a href="https://worldcorpinternational.com" target="_blank" class="mc-cta">Visit site →</a>
                         </div>
                     </div>
 
                     <!-- In Competence We Trust -->
-                    <div class="media-card-v2">
-                        <div class="media-card-logo-area">
+                    <div class="mc-card">
+                        <div class="mc-logo">
                             <img src="graphic assets/ICWT-logo.png" alt="In Competence We Trust">
                         </div>
-                        <div class="media-card-body">
+                        <div class="mc-body">
                             <h3>In Competence We Trust</h3>
                             <p>Fake news. Real insight. A satire publication covering politics, culture, and everything in between — with enough absurdity to make it bearable.</p>
-                            <a href="https://www.incompetencewetrust.com" target="_blank" class="media-card-cta">Visit site →</a>
+                            <a href="https://www.incompetencewetrust.com" target="_blank" class="mc-cta">Visit site →</a>
                         </div>
                     </div>
 
                     <!-- The Gary Luna Show -->
-                    <div class="media-card-v2">
-                        <div class="media-card-logo-area">
+                    <div class="mc-card">
+                        <div class="mc-logo">
                             <img src="graphic assets/TGLS-logo.jpeg" alt="The Gary Luna Show">
                         </div>
-                        <div class="media-card-body">
+                        <div class="mc-body">
                             <h3>The Gary Luna Show</h3>
                             <p>An animated internet talk show. I developed the character, write all the material, and voice all the characters.</p>
-                            <a href="https://www.youtube.com/channel/UCPQYNXvZ8LHfDHwNfhk9piw" target="_blank" class="media-card-cta">Watch on YouTube →</a>
+                            <a href="https://www.youtube.com/channel/UCPQYNXvZ8LHfDHwNfhk9piw" target="_blank" class="mc-cta">Watch on YouTube →</a>
                         </div>
                     </div>
 
