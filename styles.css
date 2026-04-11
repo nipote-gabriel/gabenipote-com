@@ -1220,6 +1220,10 @@ iframe[data-test-id="beehiiv-embed"] {
         aspect-ratio: 16 / 9;
     }
 
+    #hero-video {
+        object-fit: cover;
+    }
+
     .info-column {
         order: 2;
         height: auto;
