@@ -48,6 +48,34 @@
             gap: 24px;
         }
 
+        .hero-logo-wrap {
+            position: relative;
+            display: inline-block;
+            width: 100%;
+            max-width: 560px;
+        }
+
+        .hero-logo-wrap img {
+            width: 100%;
+            height: auto;
+            border-radius: 20px;
+            display: block;
+        }
+
+        .hero-logo-caption {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            padding: 40px 24px 24px;
+            background: linear-gradient(to top, rgba(0,0,0,0.72) 0%, transparent 100%);
+            border-radius: 0 0 20px 20px;
+            font-size: 1rem;
+            color: rgba(255,255,255,0.85);
+            line-height: 1.6;
+            text-align: center;
+        }
+
         .shows-hero-eyebrow {
             font-size: 11px;
             font-weight: 700;
@@ -410,9 +438,10 @@
         <!-- Hero -->
         <section class="shows-hero">
             <div class="shows-hero-inner">
-                <img src="graphic assets/Headquarters-logo.png" alt="Headquarters Comedy" style="max-height: 80px; width: auto; object-fit: contain;">
-                <h1>Headquarters Comedy</h1>
-                <p>Live comedy and interviews with interesting people doing interesting things. Come laugh and maybe even learn something.</p>
+                <div class="hero-logo-wrap">
+                    <img src="graphic assets/Headquarters-logo.png" alt="Headquarters Comedy">
+                    <div class="hero-logo-caption">Live comedy and interviews with interesting people doing interesting things. Come laugh and maybe even learn something.</div>
+                </div>
             </div>
         </section>
 
